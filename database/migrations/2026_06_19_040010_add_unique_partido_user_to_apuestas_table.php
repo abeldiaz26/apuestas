@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('user')->after('code');
+        Schema::table('apuestas', function (Blueprint $table) {
+            $table->unique(['partido_id', 'user_id']);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+        Schema::table('apuestas', function (Blueprint $table) {
+            $table->dropUnique(['apuestas_partido_id_user_id_unique']);
         });
     }
 };

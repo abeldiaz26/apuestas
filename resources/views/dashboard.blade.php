@@ -1,18 +1,31 @@
 <x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
+    <div class="space-y-6">
+        <div class="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-950">
+            <h1 class="text-2xl font-semibold">Panel de control</h1>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">Administra torneos, equipos, partidos y apuestas desde aquí.</p>
         </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+
+        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <a href="{{ route('torneos.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
+                <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Torneos</p>
+                <p class="mt-4 text-4xl font-semibold">{{ $torneosCount }}</p>
+                <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Ver y crear torneos</p>
+            </a>
+            <a href="{{ route('equipos.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
+                <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Equipos</p>
+                <p class="mt-4 text-4xl font-semibold">{{ $equiposCount }}</p>
+                <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Administrar equipos</p>
+            </a>
+            <a href="{{ route('partidos.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
+                <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Partidos</p>
+                <p class="mt-4 text-4xl font-semibold">{{ $partidosCount }}</p>
+                <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Gestión de partidos</p>
+            </a>
+            <a href="{{ route('apuestas.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
+                <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Apuestas</p>
+                <p class="mt-4 text-4xl font-semibold">{{ $apuestasCount }}</p>
+                <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Ver las apuestas</p>
+            </a>
         </div>
     </div>
 </x-layouts::app>
