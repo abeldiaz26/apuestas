@@ -11,10 +11,20 @@
                 <p class="mt-4 text-4xl font-semibold">{{ $torneosCount }}</p>
                 <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Ver y crear torneos</p>
             </a>
+            <a href="{{ route('torneos.mine') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-emerald-500 hover:bg-emerald-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-emerald-400">
+                <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Mis Torneos</p>
+                <p class="mt-4 text-4xl font-semibold">Mis torneos</p>
+                <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Ver torneos en los que estás habilitado</p>
+            </a>
             <a href="{{ route('equipos.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
                 <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Equipos</p>
                 <p class="mt-4 text-4xl font-semibold">{{ $equiposCount }}</p>
                 <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Administrar equipos</p>
+            </a>
+            <a href="{{ route('usuarios.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
+                <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Usuarios</p>
+                <p class="mt-4 text-4xl font-semibold">Usuarios</p>
+                <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Crear y administrar usuarios</p>
             </a>
             <a href="{{ route('partidos.index') }}" class="block rounded-3xl border border-neutral-200 bg-white p-6 transition hover:border-indigo-500 hover:bg-indigo-50 dark:border-neutral-800 dark:bg-neutral-950 dark:hover:border-indigo-400">
                 <p class="text-sm uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">Partidos</p>

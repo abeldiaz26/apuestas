@@ -37,6 +37,21 @@
 
                                 <p class="text-sm text-neutral-500">Creado el {{ $torneo->created_at->format('Y-m-d') }}</p>
                             </form>
+                            <form action="{{ route('torneos.sync-users', $torneo) }}" method="post" class="mt-4 space-y-4 border-t border-neutral-200 pt-4 dark:border-neutral-800">
+                                @csrf
+
+                                <div>
+                                    <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">Usuarios habilitados</label>
+                                    <select name="users[]" multiple class="mt-2 block w-full rounded-xl border border-neutral-200 bg-transparent px-4 py-2 text-sm text-neutral-900 outline-none focus:border-indigo-500 focus:ring-indigo-500 dark:border-neutral-700 dark:text-white">
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->id }}" {{ $torneo->users->contains($user) ? 'selected' : '' }}>{{ $user->name }} ({{ $user->code }})</option>
+                                        @endforeach
+                                    </select>
+                                    <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Selecciona los usuarios que pueden apostar en este torneo.</p>
+                                </div>
+
+                                <button type="submit" class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700">Guardar usuarios</button>
+                            </form>
                         </div>
                     @empty
                         <p class="text-sm text-neutral-500">No hay torneos registrados.</p>

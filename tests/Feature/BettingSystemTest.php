@@ -110,3 +110,64 @@ it('recalculates bet points when the partido result is entered', function () {
 
     expect($apuesta->fresh()->puntos)->toBe(2);
 });
+
+it('shows only upcoming matches for tournaments the authenticated user is enabled for', function () {
+    $user = User::factory()->create();
+    $allowedTournament = Tournament::create(['name' => 'Habilitado']);
+    $blockedTournament = Tournament::create(['name' => 'Bloqueado']);
+    $user->tournaments()->attach($allowedTournament->id);
+
+    $team1 = Team::create(['name' => 'Equipo A', 'flag' => 'A', 'tournament_id' => $allowedTournament->id]);
+    $team2 = Team::create(['name' => 'Equipo B', 'flag' => 'B', 'tournament_id' => $allowedTournament->id]);
+    $team3 = Team::create(['name' => 'Equipo C', 'flag' => 'C', 'tournament_id' => $blockedTournament->id]);
+    $team4 = Team::create(['name' => 'Equipo D', 'flag' => 'D', 'tournament_id' => $blockedTournament->id]);
+
+    $partidoAllowed = Partido::create([
+        'equipo1_id' => $team1->id,
+        'equipo2_id' => $team2->id,
+        'fecha_hora' => Carbon::now()->addHour(),
+        'estado' => 'pendiente',
+        'torneo_id' => $allowedTournament->id,
+    ]);
+
+    $partidoBlocked = Partido::create([
+        'equipo1_id' => $team3->id,
+        'equipo2_id' => $team4->id,
+        'fecha_hora' => Carbon::now()->addHour(),
+        'estado' => 'pendiente',
+        'torneo_id' => $blockedTournament->id,
+    ]);
+
+    $response = $this->actingAs($user)->get('/apuestas');
+
+    $response->assertOk();
+    $response->assertSee($partidoAllowed->equipo1->name);
+    $response->assertDontSee($partidoBlocked->equipo1->name);
+});
+
+it('prevents betting on partidos from tournaments the user is not enabled for', function () {
+    $user = User::factory()->create();
+    $allowedTournament = Tournament::create(['name' => 'Habilitado']);
+    $blockedTournament = Tournament::create(['name' => 'Bloqueado']);
+    $user->tournaments()->attach($allowedTournament->id);
+
+    $team1 = Team::create(['name' => 'Equipo A', 'flag' => 'A', 'tournament_id' => $allowedTournament->id]);
+    $team2 = Team::create(['name' => 'Equipo B', 'flag' => 'B', 'tournament_id' => $blockedTournament->id]);
+
+    $partidoBlocked = Partido::create([
+        'equipo1_id' => $team1->id,
+        'equipo2_id' => $team2->id,
+        'fecha_hora' => Carbon::now()->addHour(),
+        'estado' => 'pendiente',
+        'torneo_id' => $blockedTournament->id,
+    ]);
+
+    $response = $this->actingAs($user)->post('/apuestas', [
+        'partido_id' => $partidoBlocked->id,
+        'equipo1_puntaje' => 1,
+        'equipo2_puntaje' => 0,
+    ]);
+
+    $response->assertSessionHasErrors('partido_id');
+    expect(Apuesta::where('partido_id', $partidoBlocked->id)->count())->toBe(0);
+});

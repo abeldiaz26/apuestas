@@ -15,20 +15,13 @@
                         <select name="partido_id" class="mt-2 block w-full rounded-xl border border-neutral-200 bg-transparent px-4 py-2 text-sm text-neutral-900 outline-none focus:border-indigo-500 focus:ring-indigo-500 dark:border-neutral-700 dark:text-white" required>
                             <option value="">Seleccione un partido</option>
                             @foreach($partidos as $partido)
-                                <option value="{{ $partido->id }}">{{ $partido->equipo1->name }} vs {{ $partido->equipo2->name }} ({{ $partido->fecha_hora->format('Y-m-d H:i') }})</option>
+                                <option value="{{ $partido->id }}">{{ $partido->equipo1->name ?? '-' }} vs {{ $partido->equipo2->name ?? '-' }} ({{ $partido->fecha_hora->format('Y-m-d H:i') }})</option>
                             @endforeach
                         </select>
                         @error('partido_id')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-200">Usuario</label>
-                        <select name="user_id" class="mt-2 block w-full rounded-xl border border-neutral-200 bg-transparent px-4 py-2 text-sm text-neutral-900 outline-none focus:border-indigo-500 focus:ring-indigo-500 dark:border-neutral-700 dark:text-white" required>
-                            <option value="">Seleccione un usuario</option>
-                            @foreach($users as $user)
-                                <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->code }})</option>
-                            @endforeach
-                        </select>
-                        @error('user_id')<p class="mt-1 text-sm text-red-600">{{ $message }}</p>@enderror
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400">Apostarás como {{ $user->name }} ({{ $user->code }}). Elige un partido disponible en tus torneos habilitados.</p>
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div>

@@ -71,7 +71,7 @@
                         <div class="rounded-2xl border border-neutral-200 p-4 dark:border-neutral-800">
                             <div class="flex items-center justify-between gap-4">
                                 <div>
-                                    <p class="font-medium">{{ $partido->equipo1->name }} vs {{ $partido->equipo2->name }}</p>
+                                    <p class="font-medium">{{ $partido->equipo1->name ?? '-' }} vs {{ $partido->equipo2->name ?? '-' }}</p>
                                     <p class="text-sm text-neutral-500">Torneo: {{ $partido->torneo->name }}</p>
                                     <p class="text-sm text-neutral-500">Fecha: {{ $partido->fecha_hora->format('Y-m-d H:i') }}</p>
                                     <p class="text-sm text-neutral-500">Resultado: {{ $partido->equipo1_puntaje ?? '-'}} - {{ $partido->equipo2_puntaje ?? '-' }}</p>
